@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  # Backend Spring Boot (com Frontend integrado)
+  # Tanto frontend quanto backend rodam na porta 8080
+  backend:
+    build:
+      context: .
+      dockerfile: ClinicaSpring/Dockerfile
+    container_name: clinica-app
+    # Usa o MySQL do XAMPP rodando na sua máquina (host)
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://host.docker.internal:3306/clinica_quartanew?useTimezone=true&serverTimezone=UTC&createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""   # coloque aqui a senha do root do XAMPP, se tiver
+      SPRING_JPA_HIBERNATE_DDL_AUTO: none
+      SPRING_JPA_SHOW_SQL: "false"     # desliga logs de SQL para ficar mais leve
+    ports:
+      - "8080:8080"
+    restart: unless-stopped

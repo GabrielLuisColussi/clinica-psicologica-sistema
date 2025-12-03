@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <!-- Meta tags para configuração da página -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Clínica — Sistema</title>
+    <!-- Estilos CSS do sistema -->
+    <link rel="stylesheet" href="./assets/styles.css" />
+  </head>
+  <body class="auth-login">
+    <!-- 
+      ============================================
+      TELA DE LOGIN
+      ============================================
+      Esta é a primeira tela exibida ao usuário.
+      Credenciais padrão: usuário "admin" e senha "1234"
+      Após login bem-sucedido, esta tela é ocultada e o sistema principal é exibido.
+    -->
+    <div id="login-container" class="login-shell">
+      <div class="login-card">
+        <h2 class="login-title">Entrar</h2>
+        <p class="login-sub">Acesse o sistema da clínica</p>
+
+        <!-- Campo de usuário -->
+        <label class="label" for="login-email">Usuário</label>
+        <input
+          id="login-email"
+          class="input"
+          type="text"
+          placeholder="usuario"
+        />
+
+        <!-- Campo de senha -->
+        <label class="label mt-3" for="login-senha">Senha</label>
+        <input
+          id="login-senha"
+          class="input"
+          type="password"
+          placeholder="********"
+        />
+
+        <!-- Opções e botão de login -->
+        <div class="row mt-3" style="justify-content: space-between">
+          <label style="color: var(--muted); font-size: 14px">
+            <input
+              id="login-remember"
+              type="checkbox"
+              style="margin-right: 6px"
+            />
+            Lembrar-me
+          </label>
+          <!-- Botão que dispara a autenticação (configurado em app.js) -->
+          <button id="login-entrar" class="btn">Entrar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 
+      ============================================
+      SISTEMA PRINCIPAL
+      ============================================
+      Esta seção contém todo o sistema da clínica (sidebar, menu, conteúdo).
+      É ocultada por padrão e exibida apenas após login bem-sucedido.
+      O controle de exibição é feito pelo app.js através da função toggleViews().
+    -->
+    <div id="app-system" style="display: none">
+      <!-- 
+        Sidebar com menu de navegação lateral
+        Contém links para Dashboard, Agendamentos, Pacientes, Médicos e Financeiro
+      -->
+      <aside class="sidebar" id="sidebar">
+        <div class="brand">
+          <span class="brand__logo">🩺</span>
+          <span class="brand__name">Clínica</span>
+        </div>
+
+        <!-- Menu de navegação principal -->
+        <nav class="menu">
+          <!-- Link para Dashboard (página inicial) -->
+          <a href="#/dashboard" class="menu-link" data-route>
+            <img
+              src="./assets/icons/home.png"
+              alt=""
+              class="icon"
+              aria-hidden="true"
+            />
+            <span>Dashboard</span>
+          </a>
+          <!-- Link para Agendamentos -->
+          <a href="#/agendamentos" class="menu-link" data-route>
+            <img
+              src="./assets/icons/calendar.png"
+              alt=""
+              class="icon"
+              aria-hidden="true"
+            />
+            <span>Agendamentos</span>
+          </a>
+          <!-- Link para Pacientes -->
+          <a href="#/pacientes" class="menu-link" data-route>
+            <img
+              src="./assets/icons/users.png"
+              alt=""
+              class="icon"
+              aria-hidden="true"
+            />
+            <span>Pacientes</span>
+          </a>
+          <!-- Link para Médicos -->
+          <a href="#/medicos" data-route class="menu-link">
+            <img src="./assets/icons/users.png" alt="" class="icon" />
+            <span>Médicos</span>
+          </a>
+          <!-- Link para Financeiro -->
+          <a href="#/financeiro" class="menu-link" data-route>
+            <img
+              src="./assets/icons/credit-card.png"
+              alt=""
+              class="icon"
+              aria-hidden="true"
+            />
+            <span>Financeiro</span>
+          </a>
+        </nav>
+      </aside>
+
+      <!-- 
+        Área principal de conteúdo
+        Contém o cabeçalho (topbar) e a área onde as views são renderizadas
+      -->
+      <main class="main" id="main-content">
+        <!-- Cabeçalho superior com título da página e botão de usuário -->
+        <header class="topbar">
+          <div>
+            <h1 class="topbar__title" id="page-title">Dashboard</h1>
+            <p class="topbar__subtitle" id="page-subtitle"></p>
+          </div>
+          <div class="topbar__actions" style="display: flex; align-items: center; gap: 12px;">
+            <!-- Sino de notificações -->
+            <div id="notification-bell" style="position: relative; cursor: pointer;">
+              <button class="btn btn--ghost" id="notification-btn" style="position: relative; padding: 8px 12px;">
+                🔔
+                <span id="notification-badge" style="display: none; position: absolute; top: 0; right: 0; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; font-size: 11px; display: flex; align-items: center; justify-content: center; font-weight: bold;">0</span>
+              </button>
+              <div id="notification-dropdown" style="display: none; position: absolute; top: 100%; right: 0; margin-top: 8px; background: white; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); min-width: 320px; max-width: 400px; z-index: 1000; max-height: 500px; overflow-y: auto;">
+                <div style="padding: 16px; border-bottom: 1px solid var(--line);">
+                  <h3 style="margin: 0; font-size: 16px; font-weight: 700;">Notificações</h3>
+                </div>
+                <div id="notification-content" style="padding: 8px;">
+                  <p style="padding: 16px; text-align: center; color: var(--muted); margin: 0;">Carregando...</p>
+                </div>
+              </div>
+            </div>
+            <!-- Botão de usuário (permite logout ao clicar) -->
+            <button class="btn btn--ghost" id="user-btn">Sair</button>
+          </div>
+        </header>
+
+        <!-- 
+          Container principal onde as views são renderizadas dinamicamente
+          O router.js injeta o conteúdo das páginas aqui
+        -->
+        <section id="app-root" class="content" aria-live="polite"></section>
+      </main>
+    </div>
+
+    <!-- 
+      ============================================
+      SCRIPTS DO SISTEMA
+      ============================================
+      A ordem de carregamento é importante!
+    -->
+
+    <!-- 
+      CORE - Scripts fundamentais do sistema
+      Devem ser carregados primeiro
+    -->
+    <!-- Configurações gerais (API_BASE_URL, etc) -->
+    <script src="./src/config.js"></script>
+    <!-- Sistema de roteamento (deve ser carregado antes das views) -->
+    <script src="./src/core/router.js"></script>
+    <!-- Utilitários de UI (toast, helpers, etc) -->
+    <script src="./src/core/ui.js"></script>
+
+    <!-- 
+      SERVICES - Serviços de comunicação e autenticação
+      IMPORTANTE: http.js deve ser carregado ANTES de auth.js
+    -->
+    <!-- Cliente HTTP para requisições ao backend (deve vir primeiro) -->
+    <script src="./src/services/http.js"></script>
+    <!-- Serviço de autenticação (login, logout, verificação de sessão) -->
+    <script src="./src/services/auth.js"></script>
+    <!-- API REST para comunicação com o backend Spring -->
+    <script src="./src/services/restApi.js"></script>
+    <!-- API mock (fallback quando backend não está disponível) -->
+    <script src="./src/services/mockApi.js"></script>
+    <!-- Utilitários de exportação de dados -->
+    <script src="./src/utils/export.js"></script>
+
+    <!-- 
+      APP - Lógica principal da aplicação
+      Controla autenticação, navegação e exibição de telas
+    -->
+    <script src="./src/app.js"></script>
+
+    <!-- 
+      VIEWS - Páginas/componentes do sistema
+      Cada view registra uma rota no router
+    -->
+    <!-- View de login (rota /login) -->
+    <script src="./src/views/login.js"></script>
+    <!-- View do dashboard (página inicial após login) -->
+    <script src="./src/views/dashboard.js"></script>
+
+    <!-- Views de Pacientes -->
+    <script src="./src/views/pacientes-list.js"></script>
+    <script src="./src/views/pacientes-form.js"></script>
+
+    <!-- Views de Médicos -->
+    <script src="./src/views/medicos-list.js"></script>
+    <script src="./src/views/medicos-form.js"></script>
+
+    <!-- View de Agendamentos -->
+    <script src="./src/views/agendamentos.js"></script>
+
+    <!-- Views de Financeiro -->
+    <script src="./src/views/financeiro-list.js"></script>
+    <script src="./src/views/financeiro-form.js"></script>
+
+    <!-- Componentes auxiliares da agenda -->
+    <script src="./src/views/agenda-popover.js"></script>
+    <script src="./src/views/agenda-ux.js"></script>
+
+    <!-- Componente de notificações -->
+    <script src="./src/components/notifications.js"></script>
+  </body>
+</html>

@@ -1,0 +1,12 @@
+target/
+.mvn/
+mvnw
+mvnw.cmd
+*.md
+.idea/
+.vscode/
+*.iml
+.git/
+.gitignore
+compose.yaml
+
