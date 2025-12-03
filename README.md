@@ -210,19 +210,3 @@ Testes automatizados
 Página de relatórios
 
 Dashboard mais completo
-
-📸 8. Prints (Sugestão – substitua pelos seus)
-
-(Basta substituir quando fizer prints reais)
-
-![Login](https://via.placeholder.com/800x400?text=Login)
-![Dashboard](https://via.placeholder.com/800x400?text=Dashboard)
-
-🤝 9. Autores
-Nome	Função
-Gabriel Luis Colussi	Dev Backend / Docker / Documentação
-Samuel	Dev Frontend / Suporte
-Equipe	Apoio geral
-📄 10. Licença
-
-Projeto acadêmico. Uso livre para fins educacionais.
