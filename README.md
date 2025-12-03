@@ -50,31 +50,33 @@ Volumes com persistência
 
 Configuração pronta para rodar
 
-🗂 2. Estrutura Geral do Repositório
+```
+🗂 2. Estrutura Geral do Repositório clinica-sistema/
 clinica-sistema/
-├── ClinicaSpring/               # Backend (Spring Boot)
-│   ├── src/main/java/com/clinicaspring/
-│   │   ├── controller/
-│   │   ├── service/
-│   │   ├── repository/
-│   │   ├── dto/
-│   │   ├── config/
-│   │   └── model/
-│   ├── src/main/resources/
-│   │   ├── application.properties
-│   │   └── db.sql
-│   ├── pom.xml
-│   └── Dockerfile
+├── ClinicaSpring/ # Backend (Spring Boot)
+│ ├── src/main/java/com/clinicaspring/
+│ │ ├── controller/
+│ │ ├── service/
+│ │ ├── repository/
+│ │ ├── dto/
+│ │ ├── config/
+│ │ └── model/
+│ ├── src/main/resources/
+│ │ ├── application.properties
+│ │ └── db.sql
+│ ├── pom.xml
+│ └── Dockerfile
 │
-├── clinica-frontend/            # Interface do sistema
-│   ├── assets/
-│   ├── icons/
-│   ├── styles.css
-│   ├── login.html
-│   └── settings.js
+├── clinica-frontend/ # Frontend (HTML, CSS e JS)
+│ ├── assets/
+│ ├── icons/
+│ ├── styles.css
+│ ├── login.html
+│ └── settings.js
 │
-├── docker-compose.yml           # Docker principal
-└── DOCKER-README.md             # Instruções adicionais
+├── docker-compose.yml # Docker principal
+└── DOCKER-README.md # Instruções adicionais
+```
 
 🐳 3. Execução com Docker (Modo Recomendado)
 📌 Subir a stack completa:
@@ -107,27 +109,27 @@ DTO → transporte de dados
 
 Models → entidades JPA
 
-🌐 Endpoints Principais:
+```
+🔥 Endpoints Principais (API REST)
 🧍 Pacientes
 Método	Rota	Descrição
-GET	/pacientes	Lista
-POST	/pacientes	Cria
-PUT	/pacientes/{id}	Atualiza
-DELETE	/pacientes/{id}	Remove
+GET	/pacientes	Lista pacientes
+POST	/pacientes	Cria paciente
+PUT	/pacientes/{id}	Atualiza paciente
+DELETE	/pacientes/{id}	Remove paciente
 🧑‍⚕️ Médicos
 Método	Rota	Descrição
-GET	/medicos	Lista
-POST	/medicos	Cria
-PUT	/medicos/{id}	Atualiza
-DELETE	/medicos/{id}	Remove
+GET	/medicos	Lista médicos
+POST	/medicos	Cria médico
+PUT	/medicos/{id}	Atualiza médico
+DELETE	/medicos/{id}	Remove médico
 📅 Agendamentos
 Método	Rota	Descrição
-GET	/agendamentos	Lista
-POST	/agendamentos	Cria
-PUT	/agendamentos/{id}	Atualiza
-DELETE	/agendamentos/{id}	Remove
-🎨 5. Frontend (HTML + CSS + JavaScript)
-📍 Local: /clinica-frontend
+GET	/agendamentos	Lista agendamentos
+POST	/agendamentos	Cria agendamento
+PUT	/agendamentos/{id}	Atualiza agendamento
+DELETE	/agendamentos/{id}	Remove agendamento
+```
 
 Inclui:
 
